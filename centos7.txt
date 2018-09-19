@@ -1,0 +1,25 @@
+1. vmdk
+
+2. grub
+
+3. boot command 
+   boot from HD and net install. There are /vmlinuz and /initrd.img in HD.
+   ------------------------
+   root (hd0,0)
+   kernel /vmlinuz root=live:http://.../LiveOS/squashfs.img append ip=dhcp inst.ks=http://.../ks.cfg inst.repo=http://... 
+   initrd /${new_initrd}
+   ------------------------
+   a. make sure LiveOS, ks and repo is accessable. 
+      Do NOT use ksdevice=eth0. Interface name isn't eth0, since centos7 enables Predictable Network Interface. 
+   b. If use initrd.img instead of squashfs.img, there are many strang errors such as multipath, ext4, iscsi.
+      It looks like that installation failed to start and the normal boot process started (boot from HD).
+   http://forum.ipxe.org/showthread.php?tid=9659
+   
+4. install CA
+   a. Run the 2 steps in
+   https://stackoverflow.com/questions/37043442/how-to-add-certificate-authority-in-centos7
+   b. If the CA is not added to /etc/ssl/certs/ca-bundle.crt. 
+   $ openssl verify <theCA.pem> 
+   c. compare the error with that in
+   https://wiki.zimbra.com/wiki/Certificate_errors
+   For 'error 9 at 0 depth lookup:certificate is not yet valid', my fix is to adjust timezone to UTC
