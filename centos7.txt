@@ -1,6 +1,29 @@
 1. vmdk
-
+   spec 
+   https://github.com/libyal/libvmdk/blob/master/documentation/VMWare%20Virtual%20Disk%20Format%20(VMDK).asciidoc
+   a. In vmware vddk, vmware-vdiskmanager could be used to create vmdk
+      $ vmware-vdiskmanager -c -t 2 ... <diskname>.vmdk
+      Type 2 will create a flat disk file and a disk description file.
+      The flat disk could be mount as loop device.
+      $ losetup /dev/loop[n] [diskname]-flat.vmdk
+   b. partition the disk by fdisk.
+      Note: Remember the 'First sector', e.g. 2048 here
+      losetup -d ... to enable partition table
+   c. setup loop device of the disk with offset first sectior* 512 = 2048*512=1048576 
+      $ losetup -o 1048576 /dev/loop[n] [diskname]-flat.vmdk
+      Format the disk, such as ext2 by mke2fs
+   d. mount the disk to put files as normal
+      mount -o loop /dev/loop[n] [mountpoint]
+   e. umount and losetup -d
+   Now the disk could be added to any vm for use.
+      
 2. grub
+   a. If grub legacy(version 1) is required, use old version of OS such as Ubuntu 14.
+      Add the disk to hd1(/dev/sdb) of a vm, sdb1 is sdb's first partition.
+      $ grub-install --root-directory=/mnt/sdb1 '(hd1)'
+   b. grub2 
+      https://github.com/dna2github/dna2oslab/tree/master/linux 
+      http://buildvirtual.net/recreating-a-missing-vmdk-descriptor-file/ 
 
 3. boot command 
    boot from HD and net install. There are /vmlinuz and /initrd.img in HD.
@@ -23,3 +46,14 @@
    c. compare the error with that in
    https://wiki.zimbra.com/wiki/Certificate_errors
    For 'error 9 at 0 depth lookup:certificate is not yet valid', my fix is to adjust timezone to UTC
+ 
+Others:
+  a. Edit initrd
+     https://access.redhat.com/solutions/24029
+     add module, the version need match with that of kernel. So it's not recommand to do so
+     https://blog.angits.net/2009/12/adding-additionalnew-modules-to-the-initial-ramdisk-on-linux/
+     
+  b. Boot process
+     https://blog.csdn.net/yuesichiu/article/details/51350654
+
+
