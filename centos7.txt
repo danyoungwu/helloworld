@@ -24,6 +24,7 @@
    b. grub2 
       https://github.com/dna2github/dna2oslab/tree/master/linux 
       http://buildvirtual.net/recreating-a-missing-vmdk-descriptor-file/ 
+      $ grub2-install --force --verbose --boot-directory='pwd'/disk/boot /dev/loop0
 
 3. boot command 
    boot from HD and net install. There are /vmlinuz and /initrd.img in HD.
@@ -35,6 +36,7 @@
    a. make sure LiveOS, ks and repo is accessable. 
       Do NOT use ksdevice=eth0. Interface name isn't eth0, since centos7 enables Predictable Network Interface. 
    b. If use initrd.img instead of squashfs.img, there are many strang errors such as multipath, ext4, iscsi.
+      The last error may be 'Failed to start Switch Root'.
       It looks like that installation failed to start and the normal boot process started (boot from HD).
    http://forum.ipxe.org/showthread.php?tid=9659
    
