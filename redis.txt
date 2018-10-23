@@ -1,0 +1,19 @@
+Starting point
+1. download the extract the tarball
+   https://redis.io/download
+2. start from README.md in the tarball
+   Build it redis by 
+   $ make
+   There may be missing dependences, install them.
+   * the binaries store in ./src, e.g, redis-cli, redis-server
+3. get the knowledge
+  * Introduction to Redis data types. http://redis.io/topics/data-types-intro
+  * Try Redis directly inside your browser. http://try.redis.io
+  * The full list of Redis commands. http://redis.io/commands
+  * There is much more inside the Redis official documentation. http://redis.io/documentation
+4. try redis
+   start server in a terminal
+   $ ./src/redis-server
+   call commands in another terminal
+   $ ./src/redis-cli
+   
