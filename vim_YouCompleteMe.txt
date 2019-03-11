@@ -1,0 +1,36 @@
+1. Configure Vim for python IDE
+https://realpython.com/vim-and-python-a-match-made-in-heaven/
+
+2. The suffer of installing YouCompleteMe
+   To avoid 'No module named builtins' error on Mac, Please follow the steps
+   a. install Macvim
+   https://github.com/Valloric/YouCompleteMe/tree/a4e2f6149a35e04fa5df79948ef9cbcc24b7abcb#mac-os-x
+   b. edit ~/.vimrc 
+   ```
+set rtp+=/Users/<uid>/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+" add all your plugins here (note older versions of Vundle
+" used Bundle instead of Plugin)
+" ...
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+```
+    c. Install Vundle and YCM in Macvim (Must be Macvim)
+    In macvim, type ':PluginInstall`
+    
+    d. cd ~/.vim/bundle/YouCompleteMe
+       ./install.py
+       git submodule update --init --recursive 
+   
+    e. YCM should works in both builtin vim and Macvim now
+       Try it by create a.py
+       import datetime
+       datetim... (auto-complete should work)
+   
+3. More plugins
+http://keep.01ue.com/?pi=886881&_a=crawl&_c=index&_m=p
